@@ -9,8 +9,8 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=Europe/Stockholm
-#      - MEM_LIMIT=1024 #optional
-#      - MEM_STARTUP=1024 #optional
+      - MEM_LIMIT=2048 #optional
+      - MEM_STARTUP=2048 ##optional
     volumes:
       - ./config:/config
 #    ports:
