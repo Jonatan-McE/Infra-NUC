@@ -1,0 +1,41 @@
+version: '2.4'
+
+services:
+
+  unifi-controller:
+    image: lscr.io/linuxserver/unifi-controller:latest
+    container_name: unifi-controller
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Stockholm
+#      - MEM_LIMIT=1024 #optional
+#      - MEM_STARTUP=1024 #optional
+    volumes:
+      - ./config:/config
+#    ports:
+#      - 8443:8443
+#      - 3478:3478/udp
+#      - 10001:10001/udp
+#      - 8080:8080
+#      - 1900:1900/udp #optional
+#      - 8843:8843 #optional
+#      - 8880:8880 #optional
+#      - 6789:6789 #optional
+#      - 5514:5514/udp #optional
+    restart: unless-stopped
+    networks:
+      dockernetwork:
+        ipv4_address: 10.0.0.240
+
+networks:
+  dockernetwork:
+    name: unifi-controller_macvlan
+    driver: macvlan
+    driver_opts:
+      parent: eno1
+    ipam:
+      config:
+        - subnet: "10.0.0.0/24"
+          ip_range: "10.0.0.128/28"
+          gateway: "10.0.0.254"

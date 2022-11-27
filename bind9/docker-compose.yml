@@ -1,0 +1,20 @@
+version: '2.4'
+
+services:
+
+  bind9:
+    image: internetsystemsconsortium/bind9:9.18
+    container_name: bind9
+    volumes:
+      - ./config:/etc/bind
+    ports:
+      - 53:53/udp
+      - 53:53/tcp
+#      - 953/tcp
+    restart: always
+    networks:
+      dockernetwork:
+
+networks:
+  dockernetwork:
+    name: bind9_bridge
